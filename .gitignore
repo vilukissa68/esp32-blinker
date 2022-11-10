@@ -50,3 +50,18 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Binaries
+*.bin
+
+# Clang and Cmake
+*.idx
+*.cmake
+*cmake.check_cache
+
+# ESP-idf build files
+build/*
+src/client/scan/build/*
+src/client/scan/main/build/*
+src/client/scan/.cache/*
+config.h
