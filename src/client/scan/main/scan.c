@@ -21,6 +21,9 @@
 #include "wifi.h"
 
 
+static void app_handle_upstream_data(http_ready_t response) {
+    return;
+}
 
 
 void app_main(void)
