@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ESP32 text display</title>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> </head>
+  <body>
+   <h1>Change text</h1>
+    <form method="post" role="form">
+        <input type="text" id="name" name="text" value={{displayed_text}}><br>
+        <button class="btn" name="submit" id="submit">Write</button>
+
+   </form>
+    <script type="text/javascript">
+      function getFormData($form){
+          var unindexed_array = $form.serializeArray();
+          var indexed_array = {};
+
+          $.map(unindexed_array, function(n, i){
+              indexed_array[n['name']] = n['value'];
+          });
+
+          return indexed_array;
+      }
+      $(document).ready(function() {
+          $("#submit").click(function(e) {
+              e.preventDefault();
+              var $form = $("#name");
+              var jsonData = getFormData($form)
+              
+              console.log(jsonData)
+              $.ajax({
+                  type: "POST",
+                  contentType: "application/json",
+                  data: JSON.stringify(jsonData),
+                  dataType: "json",
+                  url: "http://127.0.0.1:5000/set_text",
+                  success: function(e) {
+                      console.log(e);
+                  },
+                  error: function(error) {
+                      console.log(error);
+                  }
+              });
+          });
+      });
+    </script>
+  </body>
+</html>
